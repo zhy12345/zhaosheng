@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.PhotoMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.Photo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="sign" property="sign" jdbcType="VARCHAR" />
+    <result column="photopath" property="photopath" jdbcType="VARCHAR" />
+    <result column="yuanxi" property="yuanxi" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, sign, photopath, yuanxi, addtime, author
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from photo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectBySign" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from photo
+    where sign = #{sign}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from photo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.Photo" >
+    insert into photo (id, sign, photopath, 
+      yuanxi, addtime, author
+      )
+    values (#{id,jdbcType=INTEGER}, #{sign,jdbcType=VARCHAR}, #{photopath,jdbcType=VARCHAR}, 
+      #{yuanxi,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="map" >
+    insert into photo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="sign != null" >
+        sign,
+      </if>
+      <if test="photopath != null" >
+        photopath,
+      </if>
+      <if test="yuanxi != null" >
+        yuanxi,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="sign != null" >
+        #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="photopath != null" >
+        #{photopath,jdbcType=VARCHAR},
+      </if>
+      <if test="yuanxi != null" >
+        #{yuanxi,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Photo" >
+    update photo
+    <set >
+      <if test="sign != null" >
+        sign = #{sign,jdbcType=VARCHAR},
+      </if>
+      <if test="photopath != null" >
+        photopath = #{photopath,jdbcType=VARCHAR},
+      </if>
+      <if test="yuanxi != null" >
+        yuanxi = #{yuanxi,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Photo" >
+    update photo
+    set sign = #{sign,jdbcType=VARCHAR},
+      photopath = #{photopath,jdbcType=VARCHAR},
+      yuanxi = #{yuanxi,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

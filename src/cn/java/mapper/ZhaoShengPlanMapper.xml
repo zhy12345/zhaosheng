@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.ZhaoShengPlanMapper">
+
+	<select id="getPlanIdByThree" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select id
+		from plan
+		where 
+		<if test="families != null">
+			families = #{families} AND
+		</if>
+		<if test="years != null">
+			years = #{years} AND
+		</if>
+		<if test="cengCi != null">
+			ceng_ci = #{cengCi} AND
+		</if>
+		1=1
+	</select>
+	
+	<select id="getPlanInfoList" parameterType="map" resultType="map">
+		SELECT p.id AS plan_id,p.major,p.`ceng_ci`,p.`families`,p.`people_num`,p.`addtime`,p.`years`,
+			pp.`provice`,pp.`provice_num`
+			FROM plan_province pp INNER JOIN plan p 
+			ON pp.plan_id = p.id
+			WHERE pp.plan_id  IN
+			(SELECT id FROM plan p WHERE
+			
+		<if test="years != null">
+			p.years = #{years} AND
+		</if>
+			 
+		<if test="cengCi != null">
+			p.ceng_ci = #{cengCi} AND
+		</if>
+			 
+		<if test="families != null">
+			p.families = #{families} AND
+		</if>
+			  1=1
+			  )
+			
+		<if test="province != null">
+			 AND pp.provice = #{province} AND
+		</if>
+			1=1
+	</select>
+
+
+</mapper>

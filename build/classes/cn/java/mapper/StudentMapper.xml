@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.StudentMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.Student" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="BH" property="bh" jdbcType="VARCHAR" />
+    <result column="EMS" property="ems" jdbcType="VARCHAR" />
+    <result column="KSH" property="ksh" jdbcType="VARCHAR" />
+    <result column="XM" property="xm" jdbcType="VARCHAR" />
+    <result column="XBMC" property="xbmc" jdbcType="VARCHAR" />
+    <result column="CSNY" property="csny" jdbcType="VARCHAR" />
+    <result column="MZMC" property="mzmc" jdbcType="VARCHAR" />
+    <result column="ZZMMMC" property="zzmmmc" jdbcType="VARCHAR" />
+    <result column="SFZH" property="sfzh" jdbcType="VARCHAR" />
+    <result column="JTDZ" property="jtdz" jdbcType="VARCHAR" />
+    <result column="YZBM" property="yzbm" jdbcType="VARCHAR" />
+    <result column="LXDH" property="lxdh" jdbcType="VARCHAR" />
+    <result column="SJR" property="sjr" jdbcType="VARCHAR" />
+    <result column="CJ" property="cj" jdbcType="VARCHAR" />
+    <result column="ZYMC" property="zymc" jdbcType="VARCHAR" />
+    <result column="ScriptName" property="scriptname" jdbcType="VARCHAR" />
+    <result column="YXMC" property="yxmc" jdbcType="VARCHAR" />
+    <result column="filename" property="filename" jdbcType="VARCHAR" />
+    <result column="filetype" property="filetype" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, BH, EMS, KSH, XM, XBMC, CSNY, MZMC, ZZMMMC, SFZH, JTDZ, YZBM, LXDH, SJR, CJ,
+    ZYMC, ScriptName, YXMC, filename, filetype
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="cn.java.entity.Student" >
+    select
+    <include refid="Base_Column_List" />
+    from students
+    where  KSH=#{ksh} and SFZH=#{sfzh} 
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from students
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="delByFilename" parameterType="java.lang.String" >
+    delete from students
+    where filename = #{filename}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.Student" >
+    insert into students (ID, BH, EMS,
+      KSH, XM, XBMC, CSNY,
+      MZMC, ZZMMMC, SFZH,
+      JTDZ, YZBM, LXDH, SJR,
+      CJ, ZYMC, ScriptName,
+      YXMC, filename, filetype
+      )
+    values (#{id,jdbcType=INTEGER}, #{bh,jdbcType=VARCHAR}, #{ems,jdbcType=VARCHAR},
+      #{ksh,jdbcType=VARCHAR}, #{xm,jdbcType=VARCHAR}, #{xbmc,jdbcType=VARCHAR}, #{csny,jdbcType=VARCHAR},
+      #{mzmc,jdbcType=VARCHAR}, #{zzmmmc,jdbcType=VARCHAR}, #{sfzh,jdbcType=VARCHAR},
+      #{jtdz,jdbcType=VARCHAR}, #{yzbm,jdbcType=VARCHAR}, #{lxdh,jdbcType=VARCHAR}, #{sjr,jdbcType=VARCHAR},
+      #{cj,jdbcType=VARCHAR}, #{zymc,jdbcType=VARCHAR}, #{scriptname,jdbcType=VARCHAR},
+      #{yxmc,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR}, #{filetype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="map">
+    insert into students
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="bh != null" >
+        BH,
+      </if>
+      <if test="ems != null" >
+        EMS,
+      </if>
+      <if test="ksh != null" >
+        KSH,
+      </if>
+      <if test="xm != null" >
+        XM,
+      </if>
+      <if test="xbmc != null" >
+        XBMC,
+      </if>
+      <if test="csny != null" >
+        CSNY,
+      </if>
+      <if test="mzmc != null" >
+        MZMC,
+      </if>
+      <if test="zzmmmc != null" >
+        ZZMMMC,
+      </if>
+      <if test="sfzh != null" >
+        SFZH,
+      </if>
+      <if test="jtdz != null" >
+        JTDZ,
+      </if>
+      <if test="yzbm != null" >
+        YZBM,
+      </if>
+      <if test="lxdh != null" >
+        LXDH,
+      </if>
+      <if test="sjr != null" >
+        SJR,
+      </if>
+      <if test="cj != null" >
+        CJ,
+      </if>
+      <if test="zymc != null" >
+        ZYMC,
+      </if>
+      <if test="scriptname != null" >
+        ScriptName,
+      </if>
+      <if test="yxmc != null" >
+        YXMC,
+      </if>
+      <if test="filename != null" >
+        filename,
+      </if>
+      <if test="filetype != null" >
+        filetype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="bh != null" >
+        #{bh,jdbcType=VARCHAR},
+      </if>
+      <if test="ems != null" >
+        #{ems,jdbcType=VARCHAR},
+      </if>
+      <if test="ksh != null" >
+        #{ksh,jdbcType=VARCHAR},
+      </if>
+      <if test="xm != null" >
+        #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="xbmc != null" >
+        #{xbmc,jdbcType=VARCHAR},
+      </if>
+      <if test="csny != null" >
+        #{csny,jdbcType=VARCHAR},
+      </if>
+      <if test="mzmc != null" >
+        #{mzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zzmmmc != null" >
+        #{zzmmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzh != null" >
+        #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="jtdz != null" >
+        #{jtdz,jdbcType=VARCHAR},
+      </if>
+      <if test="yzbm != null" >
+        #{yzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="lxdh != null" >
+        #{lxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="sjr != null" >
+        #{sjr,jdbcType=VARCHAR},
+      </if>
+      <if test="cj != null" >
+        #{cj,jdbcType=VARCHAR},
+      </if>
+      <if test="zymc != null" >
+        #{zymc,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptname != null" >
+        #{scriptname,jdbcType=VARCHAR},
+      </if>
+      <if test="yxmc != null" >
+        #{yxmc,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Student" >
+    update students
+    <set >
+      <if test="bh != null" >
+        BH = #{bh,jdbcType=VARCHAR},
+      </if>
+      <if test="ems != null" >
+        EMS = #{ems,jdbcType=VARCHAR},
+      </if>
+      <if test="ksh != null" >
+        KSH = #{ksh,jdbcType=VARCHAR},
+      </if>
+      <if test="xm != null" >
+        XM = #{xm,jdbcType=VARCHAR},
+      </if>
+      <if test="xbmc != null" >
+        XBMC = #{xbmc,jdbcType=VARCHAR},
+      </if>
+      <if test="csny != null" >
+        CSNY = #{csny,jdbcType=VARCHAR},
+      </if>
+      <if test="mzmc != null" >
+        MZMC = #{mzmc,jdbcType=VARCHAR},
+      </if>
+      <if test="zzmmmc != null" >
+        ZZMMMC = #{zzmmmc,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzh != null" >
+        SFZH = #{sfzh,jdbcType=VARCHAR},
+      </if>
+      <if test="jtdz != null" >
+        JTDZ = #{jtdz,jdbcType=VARCHAR},
+      </if>
+      <if test="yzbm != null" >
+        YZBM = #{yzbm,jdbcType=VARCHAR},
+      </if>
+      <if test="lxdh != null" >
+        LXDH = #{lxdh,jdbcType=VARCHAR},
+      </if>
+      <if test="sjr != null" >
+        SJR = #{sjr,jdbcType=VARCHAR},
+      </if>
+      <if test="cj != null" >
+        CJ = #{cj,jdbcType=VARCHAR},
+      </if>
+      <if test="zymc != null" >
+        ZYMC = #{zymc,jdbcType=VARCHAR},
+      </if>
+      <if test="scriptname != null" >
+        ScriptName = #{scriptname,jdbcType=VARCHAR},
+      </if>
+      <if test="yxmc != null" >
+        YXMC = #{yxmc,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        filename = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="filetype != null" >
+        filetype = #{filetype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Student" >
+    update students
+    set BH = #{bh,jdbcType=VARCHAR},
+      EMS = #{ems,jdbcType=VARCHAR},
+      KSH = #{ksh,jdbcType=VARCHAR},
+      XM = #{xm,jdbcType=VARCHAR},
+      XBMC = #{xbmc,jdbcType=VARCHAR},
+      CSNY = #{csny,jdbcType=VARCHAR},
+      MZMC = #{mzmc,jdbcType=VARCHAR},
+      ZZMMMC = #{zzmmmc,jdbcType=VARCHAR},
+      SFZH = #{sfzh,jdbcType=VARCHAR},
+      JTDZ = #{jtdz,jdbcType=VARCHAR},
+      YZBM = #{yzbm,jdbcType=VARCHAR},
+      LXDH = #{lxdh,jdbcType=VARCHAR},
+      SJR = #{sjr,jdbcType=VARCHAR},
+      CJ = #{cj,jdbcType=VARCHAR},
+      ZYMC = #{zymc,jdbcType=VARCHAR},
+      ScriptName = #{scriptname,jdbcType=VARCHAR},
+      YXMC = #{yxmc,jdbcType=VARCHAR},
+      filename = #{filename,jdbcType=VARCHAR},
+      filetype = #{filetype,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

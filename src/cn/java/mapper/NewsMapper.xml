@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.NewsMapper">
+	<resultMap id="BaseResultMap" type="cn.java.entity.News">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="VARCHAR" />
+		<result column="subject" property="subject" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="VARCHAR" />
+		<result column="photopath" property="photopath"
+			jdbcType="VARCHAR" />
+		<result column="clicknum" property="clicknum"
+			jdbcType="INTEGER" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="cn.java.entity.News"
+		extends="BaseResultMap">
+		<result column="content" property="content"
+			jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, type, subject, author, time, photopath, clicknum
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<sql id="user_find">
+		<where>
+			<if test="name != null and name != ''">
+				and subject like #{name}
+			</if>
+			<if test="type!=null and type !=''">
+				and type = "通知说明"				
+			</if>
+		</where>
+	</sql>
+	<select id="selectFournews" resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from news
+		order by TIME desc limit 5 
+	</select>
+
+	<select id="selectAllnews" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from news 
+		<where>
+			<if test="name!=null and name!=''">
+				subject like (#{name})
+			</if>
+			<if test="type!=null and type!=''">
+				and type=#{type}
+			</if>
+		</where>
+		 ORDER BY TIME DESC
+	</select>
+
+	<select id="selectByPrimaryKey"  resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from news
+		WHERE id IN((SELECT id FROM news WHERE id  &lt; #{id} ORDER BY id DESC LIMIT 1),#{id},(SELECT id FROM news WHERE id  &gt; #{id} ORDER BY id LIMIT 1))
+	</select>
+	
+	<select id="selectById"  resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from news
+		WHERE id = #{id}
+	</select>
+	
+	<select id="selectByKeyType"  resultMap="ResultMapWithBLOBs" parameterType="cn.java.entity.News">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from news
+		WHERE type=#{type} and id IN((SELECT id FROM news WHERE id  &lt; #{id} ORDER BY id DESC LIMIT 1),#{id},(SELECT id FROM news WHERE id  &gt; #{id} ORDER BY id LIMIT 1))
+	</select>
+	
+	<select id="selectByType" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from news where 
+		<if test="name != null and name != ''">
+			subject like #{name} and
+		</if>
+		type = #{type} ORDER BY TIME DESC 
+	</select>
+	
+
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from news
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	
+	<insert id="insert" parameterType="cn.java.entity.News">
+		insert into news (id, type, subject,
+		author, time, photopath,
+		clicknum, content)
+		values (#{id,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
+		#{subject,jdbcType=VARCHAR},
+		#{author,jdbcType=VARCHAR}, #{time,jdbcType=VARCHAR}, #{photopath,jdbcType=VARCHAR},
+		#{clicknum,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+	</insert>
+	
+	<insert id="insertSelective" parameterType="cn.java.entity.News">
+		insert into news
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="subject != null">
+				subject,
+			</if>
+			<if test="author != null">
+				author,
+			</if>
+			<if test="time != null">
+				time,
+			</if>
+			<if test="photopath != null">
+				photopath,
+			</if>
+			<if test="clicknum != null">
+				clicknum,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				#{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=VARCHAR},
+			</if>
+			<if test="time != null">
+				#{time,jdbcType=VARCHAR},
+			</if>
+			<if test="photopath != null">
+				#{photopath,jdbcType=VARCHAR},
+			</if>
+			<if test="clicknum != null">
+				#{clicknum,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="cn.java.entity.News">
+		update news
+		<set>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				subject = #{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				author = #{author,jdbcType=VARCHAR},
+			</if>
+			<if test="time != null">
+				time = #{time,jdbcType=VARCHAR},
+			</if>
+			<if test="photopath != null">
+				photopath = #{photopath,jdbcType=VARCHAR},
+			</if>
+			<if test="clicknum != null">
+				clicknum = #{clicknum,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs"
+		parameterType="cn.java.entity.News">
+		update news
+		set type = #{type,jdbcType=VARCHAR},
+		subject = #{subject,jdbcType=VARCHAR},
+		author = #{author,jdbcType=VARCHAR},
+		time = #{time,jdbcType=VARCHAR},
+		photopath = #{photopath,jdbcType=VARCHAR},
+		clicknum = #{clicknum,jdbcType=INTEGER},
+		content = #{content,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="cn.java.entity.News">
+		update news
+		set type = #{type,jdbcType=VARCHAR},
+		subject = #{subject,jdbcType=VARCHAR},
+		author = #{author,jdbcType=VARCHAR},
+		time = #{time,jdbcType=VARCHAR},
+		photopath = #{photopath,jdbcType=VARCHAR},
+		clicknum = #{clicknum,jdbcType=INTEGER}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateClicknum" parameterType="java.lang.Integer">
+		UPDATE news SET clicknum=clicknum + 1 WHERE id=#{id}
+	</update>
+</mapper>

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.VideoFileMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.VideoFile" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="videoname" property="videoname" jdbcType="VARCHAR" />
+    <result column="videophoto" property="videophoto" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="VARCHAR" />
+    <result column="videofrom" property="videofrom" jdbcType="VARCHAR" />
+    <result column="checknum" property="checknum" jdbcType="INTEGER" />
+    <result column="videopath" property="videopath" jdbcType="VARCHAR" />
+    <result column="photopath" property="photopath" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, videoname, videophoto, author, date, videofrom, checknum, videopath, photopath
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from videofile
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllVideo" resultMap="BaseResultMap"  parameterType="map" >
+    select 
+    <include refid="Base_Column_List" />
+    from videofile
+     <where>
+    	<if test="videofrom!=null">
+    		 videofrom = #{videofrom,jdbcType=VARCHAR}
+    	</if>
+    </where>
+  </select>
+  
+  <select id="selectByVideofrom" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from videofile
+    where videofrom = #{videofrom}
+  </select>
+  
+  <select id="selectVideoByFrom" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT * FROM videofile 
+     ORDER BY id DESC LIMIT 4 
+  </select>
+  
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from videofile
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.VideoFile" >
+    insert into videofile (id, videoname, videophoto, 
+      author, date, videofrom, 
+      checknum, videopath, photopath
+      )
+    values (#{id,jdbcType=INTEGER}, #{videoname,jdbcType=VARCHAR}, #{videophoto,jdbcType=VARCHAR}, 
+      #{author,jdbcType=VARCHAR}, #{date,jdbcType=VARCHAR}, #{videofrom,jdbcType=VARCHAR}, 
+      #{checknum,jdbcType=INTEGER}, #{videopath,jdbcType=VARCHAR}, #{photopath,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.java.entity.VideoFile" >
+    insert into videofile
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="videoname != null" >
+        videoname,
+      </if>
+      <if test="videophoto != null" >
+        videophoto,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="videofrom != null" >
+        videofrom,
+      </if>
+      <if test="checknum != null" >
+        checknum,
+      </if>
+      <if test="videopath != null" >
+        videopath,
+      </if>
+      <if test="photopath != null" >
+        photopath,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="videoname != null" >
+        #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videophoto != null" >
+        #{videophoto,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="videofrom != null" >
+        #{videofrom,jdbcType=VARCHAR},
+      </if>
+      <if test="checknum != null" >
+        #{checknum,jdbcType=INTEGER},
+      </if>
+      <if test="videopath != null" >
+        #{videopath,jdbcType=VARCHAR},
+      </if>
+      <if test="photopath != null" >
+        #{photopath,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.VideoFile" >
+    update videofile
+    <set >
+      <if test="videoname != null" >
+        videoname = #{videoname,jdbcType=VARCHAR},
+      </if>
+      <if test="videophoto != null" >
+        videophoto = #{videophoto,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="videofrom != null" >
+        videofrom = #{videofrom,jdbcType=VARCHAR},
+      </if>
+      <if test="checknum != null" >
+        checknum = #{checknum,jdbcType=INTEGER},
+      </if>
+      <if test="videopath != null" >
+        videopath = #{videopath,jdbcType=VARCHAR},
+      </if>
+      <if test="photopath != null" >
+        photopath = #{photopath,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.VideoFile" >
+    update videofile
+    set videoname = #{videoname,jdbcType=VARCHAR},
+      videophoto = #{videophoto,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      date = #{date,jdbcType=VARCHAR},
+      videofrom = #{videofrom,jdbcType=VARCHAR},
+      checknum = #{checknum,jdbcType=INTEGER},
+      videopath = #{videopath,jdbcType=VARCHAR},
+      photopath = #{photopath,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.LunboMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.Lunbo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="photodetail" property="photodetail" jdbcType="VARCHAR" />
+    <result column="orders" property="orders" jdbcType="INTEGER" />
+    <result column="photopath" property="photopath" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="spare" property="spare" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, photodetail, orders, photopath, addtime, spare
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from lunbo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectAllLuobo" resultMap="BaseResultMap">
+  	select
+  	* from lunbo  order by orders asc
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from lunbo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.Lunbo" >
+    insert into lunbo (id, photodetail, orders, 
+      photopath, addtime, spare
+      )
+    values (#{id,jdbcType=INTEGER}, #{photodetail,jdbcType=VARCHAR}, #{orders,jdbcType=INTEGER}, 
+      #{photopath,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR}, #{spare,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.java.entity.Lunbo" >
+    insert into lunbo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="photodetail != null" >
+        photodetail,
+      </if>
+      <if test="orders != null" >
+        orders,
+      </if>
+      <if test="photopath != null" >
+        photopath,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="spare != null" >
+        spare,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="photodetail != null" >
+        #{photodetail,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="photopath != null" >
+        #{photopath,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="spare != null" >
+        #{spare,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Lunbo" >
+    update lunbo
+    <set >
+      <if test="photodetail != null" >
+        photodetail = #{photodetail,jdbcType=VARCHAR},
+      </if>
+      <if test="orders != null" >
+        orders = #{orders,jdbcType=INTEGER},
+      </if>
+      <if test="photopath != null" >
+        photopath = #{photopath,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="spare != null" >
+        spare = #{spare,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Lunbo" >
+    update lunbo
+    set photodetail = #{photodetail,jdbcType=VARCHAR},
+      orders = #{orders,jdbcType=INTEGER},
+      photopath = #{photopath,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      spare = #{spare,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

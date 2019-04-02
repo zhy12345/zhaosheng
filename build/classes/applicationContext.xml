@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
+       
+       <context:component-scan base-package="cn.java.service.impl" />
+       
+       <!-- 读取database.properties文件 -->
+       <bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+       	<!-- 指定properties文件所在路径 -->
+       	<property name="location" value="classpath:database.properties"></property>
+       </bean>
+       
+       <!-- 配置数据源 -->
+       <bean id="basicDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+       	<!-- 配置driverClassName、url、username、password -->
+       	<property name="driverClassName" value="${driver}"></property>
+       	<property name="url" value="${url}"></property>
+       	<property name="username" value="${username}"></property>
+       	<property name="password" value="${password}"></property>
+       </bean>
+       
+       <!-- 配置扫描保存sql语句的局部xml文件 -->
+       <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+       		<!-- 指定数据源 -->
+       		<property name="dataSource" ref="basicDataSource"></property>
+       		<!-- 指定局部xml文件的位置 -->
+       		<property name="mapperLocations" value="classpath*:cn/java/mapper/*.xml"></property>
+       		        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>
+                           helperDialect=mysql
+							reasonable=true
+							rowBoundsWithCount=true
+							pageSizeZero=true
+							offsetAsPageNum=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
+       </bean>
+       
+       <!-- 扫描mapper接口类，并且将接口类与xml文件关联 -->
+       <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+       		<!-- 指定mapper接口类存放的位置 -->
+       		<property name="basePackage" value="cn.java.mapper"></property>
+       </bean>
+       
+</beans>

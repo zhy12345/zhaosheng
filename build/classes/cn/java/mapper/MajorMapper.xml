@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.MajorMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.Major" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="subject" property="subject" jdbcType="VARCHAR" />
+    <result column="majortype" property="majortype" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="addtime" property="addtime" jdbcType="VARCHAR" />
+    <result column="clicknum" property="clicknum" jdbcType="INTEGER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.java.entity.Major" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, subject, majortype, name, author, addtime, clicknum
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  	<sql id="user_find">
+		<where>
+			<if test="name != null and name != ''">
+				and subject like #{name}
+			</if>
+			<if test="majortype!=null and majortype !=''">
+				and majortype = #{majortype}				
+			</if>
+		</where>
+	</sql>
+  <select id="selectById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from major
+    where id = #{id,jdbcType=INTEGER} ORDER BY id DESC
+ </select>
+ 	
+ 
+ <select id="selectThreeById" resultMap="ResultMapWithBLOBs" parameterType="cn.java.entity.Major"  >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from major
+    WHERE id IN((SELECT id FROM major WHERE id  &lt; #{id} and majortype = #{majortype} ORDER BY id DESC LIMIT 1),#{id},(SELECT id FROM major WHERE id  &gt; #{id} and majortype = #{majortype} ORDER BY id DESC LIMIT 1))
+ </select>
+ 
+ 
+ <select id="selectByMajorType" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+   SELECT `id`,`name` 
+   FROM major 
+    where majortype = #{majortype} 
+ </select>
+  
+ <select id="selectAllMajor" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+	from major
+	<include refid="user_find"></include>
+   
+   ORDER BY id DESC
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from major
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.Major" >
+    insert into major (id, subject, majortype, 
+      name, author, addtime, 
+      clicknum, content)
+    values (#{id,jdbcType=INTEGER}, #{subject,jdbcType=VARCHAR}, #{majortype,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{addtime,jdbcType=VARCHAR}, 
+      #{clicknum,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.java.entity.Major" >
+    insert into major
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="subject != null" >
+        subject,
+      </if>
+      <if test="majortype != null" >
+        majortype,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="author != null" >
+        author,
+      </if>
+      <if test="addtime != null" >
+        addtime,
+      </if>
+      <if test="clicknum != null" >
+        clicknum,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="subject != null" >
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="majortype != null" >
+        #{majortype,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="clicknum != null" >
+        #{clicknum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.Major" >
+    update major
+    <set >
+      <if test="subject != null" >
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="majortype != null" >
+        majortype = #{majortype,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null" >
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="addtime != null" >
+        addtime = #{addtime,jdbcType=VARCHAR},
+      </if>
+      <if test="clicknum != null" >
+        clicknum = #{clicknum,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.java.entity.Major" >
+    update major
+    set subject = #{subject,jdbcType=VARCHAR},
+      majortype = #{majortype,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      clicknum = #{clicknum,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.Major" >
+    update major
+    set subject = #{subject,jdbcType=VARCHAR},
+      majortype = #{majortype,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      addtime = #{addtime,jdbcType=VARCHAR},
+      clicknum = #{clicknum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateClicknum" parameterType="java.lang.Integer">
+		UPDATE major SET clicknum=clicknum + 1 WHERE id=#{id}
+	</update>
+  
+</mapper>

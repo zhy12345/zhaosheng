@@ -1,0 +1,35 @@
+label.error {
+  background:url("images/unchecked.gif")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/js/jquery-validate/images/unchecked.gif*/ no-repeat 0px 0px;
+  padding-left: 18px;
+  padding-bottom: 2px;
+  /*color: #EA5200;*/
+  color: #FF0000;
+  margin-left: 10px;
+}
+
+
+/** 新增 */
+label.error, label.valid, label.focus,label.normal {   
+	background:url("images/unchecked.gif")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/js/jquery-validate/images/unchecked.gif*/ no-repeat 0px 5px; color: #999999;
+	/* font: 12px/1 verdana, simsun, sans-serif;  */  
+	font-size:13px;   
+	margin: 0;   
+	padding: 4px 0px 4px 20px; 
+	/*border: 1px solid #ccc;*/
+	*height:30px; 
+	*display: inline-block;
+	*zoom: 1;
+	*margin-left: 10px;
+}  
+  
+label.normal[tip] {background:url("../../images/login/tip.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/tip.png*/ no-repeat 0px 5px; color: #999999;}  
+label.error {background:url("../../images/login/danger.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/danger.png*/ no-repeat 0px 5px;color: #B52726; }  
+label.valid { background:url("../../images/login/success.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/success.png*/ no-repeat 0px 5px;color: #2666AF; }  
+label.focus[tip] { background:url("../../images/login/tip.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/tip.png*/ no-repeat 0px 5px; color: #999999; } 
+
+
+
+*label.normal[tip] {background:url("../../images/login/tip.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/tip.png*/ no-repeat 0px 11px; color: #999999;}  
+*label.error {background:url("../../images/login/danger.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/danger.png*/ no-repeat 0px 11px;color: #B52726; }  
+*label.valid { background:url("../../images/login/success.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/success.png*/ no-repeat 0px  11px;color: #2666AF; }  
+*label.focus[tip] { background:url("../../images/login/tip.png")/*tpa=https://zhaosheng.upc.edu.cn/static/front/upc/basic/images/login/tip.png*/ no-repeat 0px 11px; color: #999999; } 

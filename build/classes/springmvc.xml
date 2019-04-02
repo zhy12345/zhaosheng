@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+
+	<!-- 配置包扫描 -->
+	<context:component-scan base-package="cn.java.controller" />
+
+	<!-- mvc注解驱动 -->
+	<mvc:annotation-driven />
+
+	<!-- 视图解析器 -->
+	<bean id="internalResourceViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 配置前缀 -->
+		<property name="prefix" value="/pages/"></property>
+		<!-- 配置后缀 -->
+		<property name="suffix" value=""></property>
+	</bean>
+
+	<!-- 文件上传 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- 配置默认编码 -->
+		<property name="defaultEncoding" value="utf-8"></property>
+		<!-- 配置文件上传的大小 -->
+		<!-- <property name="maxUploadSize" value="1048576"></property> -->
+	</bean>
+
+	<!-- 配置hibernate-validator数据校验 -->
+	<mvc:annotation-driven validator="validator" />
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass"
+			value="org.hibernate.validator.HibernateValidator" />
+	</bean>
+
+	<!-- 定时器 -->
+	<task:scheduler id="scheduler" pool-size="10" />
+	<task:executor id="executor" keep-alive="3600"
+		pool-size="100-200" queue-capacity="500"
+		rejection-policy="CALLER_RUNS" />
+	<task:annotation-driven executor="executor"
+		scheduler="scheduler" />
+	<mvc:annotation-driven />
+	<!-- 配置拦截器 -->
+	
+	  <mvc:interceptors>
+		<mvc:interceptor>
+	       <mvc:mapping path="/admin/*.shtml"/>
+	       <mvc:exclude-mapping path="/admin/adminlogin.shtml"/>
+	       <mvc:exclude-mapping path="/admin/getCapthca.shtml"/>
+	        <bean class="cn.java.interceptor.LoginInterceptor"/>
+	    </mvc:interceptor>
+	</mvc:interceptors> 
+</beans>

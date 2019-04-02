@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.java.mapper.CollegeMapper" >
+  <resultMap id="BaseResultMap" type="cn.java.entity.College" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="college_name" property="collegeName" jdbcType="VARCHAR" />
+    <result column="college_photo" property="collegePhoto" jdbcType="VARCHAR" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="cn.java.entity.College" extends="BaseResultMap" >
+    <result column="college_detail" property="collegeDetail" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, college_name, college_photo, add_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    college_detail
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from college
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from college
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.java.entity.College" >
+    insert into college (id, college_name, college_photo, 
+      add_time, college_detail)
+    values (#{id,jdbcType=INTEGER}, #{collegeName,jdbcType=VARCHAR}, #{collegePhoto,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=VARCHAR}, #{collegeDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.java.entity.College" >
+    insert into college
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="collegeName != null" >
+        college_name,
+      </if>
+      <if test="collegePhoto != null" >
+        college_photo,
+      </if>
+      <if test="addTime != null" >
+        add_time,
+      </if>
+      <if test="collegeDetail != null" >
+        college_detail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="collegeName != null" >
+        #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegePhoto != null" >
+        #{collegePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeDetail != null" >
+        #{collegeDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.java.entity.College" >
+    update college
+    <set >
+      <if test="collegeName != null" >
+        college_name = #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegePhoto != null" >
+        college_photo = #{collegePhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null" >
+        add_time = #{addTime,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeDetail != null" >
+        college_detail = #{collegeDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.java.entity.College" >
+    update college
+    set college_name = #{collegeName,jdbcType=VARCHAR},
+      college_photo = #{collegePhoto,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR},
+      college_detail = #{collegeDetail,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.java.entity.College" >
+    update college
+    set college_name = #{collegeName,jdbcType=VARCHAR},
+      college_photo = #{collegePhoto,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

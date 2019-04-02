@@ -1,0 +1,133 @@
+﻿/* 友情提示  */
+
+.actGotop_right {
+    position: fixed;
+    bottom: 50px;
+    right: 0px;
+    width: 135px;
+    height: 370px;
+    border: solid 1px rgba(255, 255, 255, 0.089);
+    /* background: #fff; */
+    background: #ebe0e08c;
+    border-radius: 10px;
+    /* display: none; */
+    z-index: 100;
+    padding-left: 5px;
+    padding-top: 10px;
+    /* opacity: 0.3; */
+    text-shadow: 2px 2px 5px #fff;
+    box-shadow: 2px 2px 10px #eee;
+    cursor: pointer;
+}
+
+.img1 {
+    width: 130px;
+    height: 130px;
+    display: block;
+    margin: 0px;
+}
+
+.actGotop_right p {
+    color: #0f0f94;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+.actGotop_right img {
+    opacity: 0.9;
+    display: block;
+    margin: 3px 0;
+}
+
+.actGotop_right span {
+    font-size: 12px;
+    color: #300c58;
+    display: block;
+    text-align: center;
+}
+
+.actGotop_right input {
+    background: #f5f1f1;
+    display: block;
+    margin: 0px auto;
+    color: #191970;
+    width: 60px;
+    height: 30px;
+    font-size: 12px;
+    padding: 1px;
+    border: solid 1px rgb(221, 207, 207);
+    border-radius: 2px;
+}
+
+.actGotop_left {
+    position: fixed;
+    bottom: 368px;
+    left: 0px;
+    width: 125px;
+    height: 90px;
+    border: solid 1px rgba(255, 255, 255, 0.089);
+    background-color: rgba(231, 222, 222, 0.747);
+    border-radius: 10px;
+    z-index: 100;
+    padding: 30px 20px;
+    box-sizing: border-box;
+    color: #0f0f94;
+    font-size: bold;
+    text-shadow: 5px 5px 10px #fff;
+    box-shadow: 5px 5px 30px #eee;
+    cursor: pointer;
+}
+
+.actGotop_left_child {
+    position: fixed;
+    bottom: 114px;
+    left: 129px;
+    width: 220px;
+    height: 300px;
+    border: solid 1px #EEE;
+    border-radius: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: #ebe0e09c;
+    z-index: 1;
+    color: #000;
+    display: none;
+}
+.actGotop_left_child ul a:link{
+color:#000;
+}
+.actGotop_left_child .video_text h3 {
+    font-size: bold;
+    font-family: "楷体";
+}
+
+.actGotop_left_child .title {
+    color: #0f0f94;
+    text-align: center;
+    padding-left: 60px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.actGotop_left_child .more {
+    font-size: 12px;
+    color: #888;
+    position: absolute;
+    left: 131px;
+    top: 28px;
+}
+
+.actGotop_left_child .tzgg-con {
+    font-size: 13px;
+    width: 210px;
+    height: 300px;
+}
+
+.tzgg-con li {
+	margin-left:25px;
+    text-overflow: ellipsis;
+    white-space: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    line-height: 30px;
+}

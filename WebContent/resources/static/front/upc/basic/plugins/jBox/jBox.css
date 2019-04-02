@@ -1,0 +1,82 @@
+.jbox-container {
+    background: #fff;
+    border-radius: 4px;
+}
+.jbox-title-panel {
+    font-size: 18px;
+    border-radius: 4px 4px 0 0;
+    padding: 15px;
+    background: #e8e8e8;
+    border-bottom: 1px solid #f4f4f4;
+}
+.jbox-fade{
+	background: #000;
+}
+.jbox-close{
+	position: absolute;
+	top:0;
+    right:0;
+    width:40px;
+    text-align: center;
+    height:56px;
+    line-height: 54px;
+	font-size: 18px;
+	color:#aaa;
+	cursor: pointer;
+}
+.jbox-close i{
+    font-size:30px;
+}
+.jbox-button-panel{
+    padding: 15px;
+    text-align: right;
+    border-top: 1px solid #f4f4f4;
+}
+.jbox-button-panel button{
+	margin-left: 10px;
+}
+.jbox-button-panel button.btn-info{
+    background: #9c484b;
+    color:#fff;
+}
+.jbox-content{
+	/*padding:15px;*/
+}
+.jbox-content .confirmTxt{
+	text-align: center;
+	margin-top: 10px;
+    padding:15px;
+}
+.jbox-content .confirmWap{
+    padding:15px;
+}
+.jbox-content .fa-question-circle,
+.jbox-content .fa-exclamation-circle{
+  font-size: 40px;
+  vertical-align: -10px;
+  margin-right: 10px;
+}
+.jbox-content .control-label{
+	font-weight: normal;
+	padding-right: 0;
+}
+.jbox-content .checkbox,.jbox-content .radio{
+	margin-top: 0;
+}
+.jbox-tip .fa{
+    margin-right: 5px;
+    font-size:28px;
+    vertical-align: -5px;
+}
+@keyframes farotate{
+　　0%{transform:rotate(0deg);}
+　　100%{transform:rotate(360deg);}
+}
+@-webkit-keyframes farotate{
+　　0%{-webkit-transform:rotate(0deg);}
+　　100%{-webkit-transform:rotate(360deg);}
+}
+.jbox-tip .fa.fa-spinner{
+    -webkit-animation: farotate 0.7s linear;
+    animation: farotate 0.7s linear;
+}
